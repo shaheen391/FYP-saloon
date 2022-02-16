@@ -28,40 +28,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // initialRoute: '/',
-      // routes: {
-      //   '/' :(context)=>Signup(),
-      //   '/ChatScreen':(context)=>Chat(),
-      // },
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        textTheme: GoogleFonts.ubuntuTextTheme(Theme.of(context).textTheme),
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      
-           ),
-      home: IntroPage(),
-      routes: <String, WidgetBuilder>{
-        UIData.homePageRoute: (BuildContext context) => HomePage(),
-        UIData.introPageRoute: (BuildContext context) => IntroPage(),
-        UIData.bookPageRoute: (BuildContext context) => BookPage(),
-        UIData.bookappointmentPageRoute: (BuildContext context) =>
-            Bookappointment(),
-        UIData.accountPageRoute: (BuildContext context) => Account(),
-        UIData.chatPageRoute: (BuildContext context) => Chat(),
-        UIData.appointmentPageRoute: (BuildContext context) => Appointment(),
-        UIData.appointment1PageRoute: (BuildContext context) =>
-            Appointment1(),
-        UIData.appointment2PageRoute: (BuildContext context) =>
-            Appointment2(),
-        UIData.bookappointment1PageRoute: (BuildContext context) =>
-            Bookapp1(),
-        UIData.bookappointment2PageRoute: (BuildContext context) =>
-            Bookapp2(),
-            UIData.bookmoreappointmentPageRoute: (BuildContext context) =>
-            Bookmoreappointment(),
-      }
-    );
+        // initialRoute: '/',
+        // routes: {
+        //   '/' :(context)=>Signup(),
+        //   '/ChatScreen':(context)=>Chat(),
+        // },
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          textTheme: GoogleFonts.ubuntuTextTheme(Theme.of(context).textTheme),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: IntroPage(),
+        routes: <String, WidgetBuilder>{
+          UIData.homePageRoute: (BuildContext context) => HomePage(),
+          UIData.introPageRoute: (BuildContext context) => IntroPage(),
+          UIData.bookPageRoute: (BuildContext context) => BookPage(),
+          UIData.bookappointmentPageRoute: (BuildContext context) =>
+              Bookappointment(),
+          UIData.accountPageRoute: (BuildContext context) => Account(),
+          UIData.chatPageRoute: (BuildContext context) => Chat(),
+          UIData.appointmentPageRoute: (BuildContext context) => Appointment(),
+          UIData.appointment1PageRoute: (BuildContext context) =>
+              Appointment1(),
+          UIData.appointment2PageRoute: (BuildContext context) =>
+              Appointment2(),
+          UIData.bookappointment1PageRoute: (BuildContext context) =>
+              Bookapp1(),
+          UIData.bookappointment2PageRoute: (BuildContext context) =>
+              Bookapp2(),
+          UIData.bookmoreappointmentPageRoute: (BuildContext context) =>
+              Bookmoreappointment(),
+        });
   }
 }

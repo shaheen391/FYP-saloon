@@ -1,6 +1,4 @@
-
 //Home
-
 
 import 'package:beautysalon/pages/Bottom/bottm.dart';
 import 'package:beautysalon/pages/book.dart';
@@ -22,27 +20,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
   @override
   Widget build(BuildContext context) {
     final screen_size_width = MediaQuery.of(context).size.width;
     final screen_size_height = MediaQuery.of(context).size.height;
     return Scaffold(
-      
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-                icon: Icon(Icons.short_text, color: Colors.black87),
-                onPressed: () {
-                  
-                 Scaffold.of(context).openDrawer();
-                });
-          }
-        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+              icon: Icon(Icons.short_text, color: Colors.black87),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              });
+        }),
         title: Padding(
           padding: const EdgeInsets.only(left: 80),
           child: Text(
@@ -120,13 +112,12 @@ class _HomePageState extends State<HomePage> {
                                     )),
                                 SizedBox(height: 15),
                                 MyButton2(
-                                    btnText: "GET UPTO 50% OFF", onpressed: () {})
+                                    btnText: "GET UPTO 50% OFF",
+                                    onpressed: () {})
                               ],
                             ),
                           );
-                        })
-        
-                    ),
+                        })),
                 SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -277,134 +268,163 @@ class _HomePageState extends State<HomePage> {
                 Container(
                     height: 230,
                     width: screen_size_width,
-                    child:ListView.builder(
-                      itemCount: specialistimages.length,
+                    child: ListView.builder(
+                        itemCount: specialistimages.length,
                         scrollDirection: Axis.horizontal,
-                      itemBuilder: (context,index){
-                        return Column(
-        children: <Widget>[
-          
-          Container(
-            width: 120,
-            height: 120,
-              margin: EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                image: DecorationImage(
-                    image: AssetImage(specialistimages[index]), fit: BoxFit.cover)),
-          ),
-          
-          Container(
-            margin: EdgeInsets.only(right: 8),
-            width: 120,
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 10,),
-                  Text(name[index],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                      SizedBox(height: 4),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                    Icon(Icons.star, color: UIData.mainColor, size: 14),
-                    SizedBox(width: 1),
-                    Icon(Icons.star, color: UIData.mainColor, size: 14),
-                    SizedBox(width: 1),
-                    Icon(Icons.star, color: UIData.mainColor, size: 14),
-                    SizedBox(width: 1),
-                    Icon(Icons.star, color: UIData.mainColor, size: 14),
-                    SizedBox(width: 1),
-                    Icon(Icons.star, color: UIData.lightColor, size: 14),
-                  ]),
-                  SizedBox(height: 4),
-                  Row(
-                    
-                    children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Icon(Icons.phone, size: 15, color: Colors.grey[700]),
-                    ),
-                    SizedBox(width:2),
-                    Expanded(child: Text("0722000000", style: TextStyle(
-                      color: Colors.grey[700], fontSize: 12
-                    )))
-                  ],)
-                ],
-              ),
-            ),
-          ),
-          
-        ],
-          );
-                    })
-                    
-                  
-                    ),
-                    Row(
-                      children: [
-                        Text("Our Works",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.w600)),
-                      ],
-                    ),
-                    SizedBox(height: screen_size_height*0.02,),
-                   
-                   Container(
-                     child:Ourworks(img1: 'images/1.jpg', img2: 'images/2.jpg', name1: 'Stylist', name2: 'HairDresser')
-                   ),
-                   SizedBox(height: screen_size_height*0.02,),
-                   Container(
-                     child:Ourworks(img1: 'images/3.jpg', img2: 'images/4.jpg', name1: 'Stylist', name2: 'HairDresser')
-                   ),
-                    SizedBox(height: screen_size_height*0.02,),
-                   Container(
-                     child:Ourworks(img1: 'images/3.jpg', img2: 'images/4.jpg', name1: 'Stylist', name2: 'HairDresser')
-                   )
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: <Widget>[
+                              Container(
+                                width: 120,
+                                height: 120,
+                                margin: EdgeInsets.only(right: 8),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    image: DecorationImage(
+                                        image:
+                                            AssetImage(specialistimages[index]),
+                                        fit: BoxFit.cover)),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(right: 8),
+                                width: 120,
+                                child: Center(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(name[index],
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                      SizedBox(height: 4),
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Icon(Icons.star,
+                                                color: UIData.mainColor,
+                                                size: 14),
+                                            SizedBox(width: 1),
+                                            Icon(Icons.star,
+                                                color: UIData.mainColor,
+                                                size: 14),
+                                            SizedBox(width: 1),
+                                            Icon(Icons.star,
+                                                color: UIData.mainColor,
+                                                size: 14),
+                                            SizedBox(width: 1),
+                                            Icon(Icons.star,
+                                                color: UIData.mainColor,
+                                                size: 14),
+                                            SizedBox(width: 1),
+                                            Icon(Icons.star,
+                                                color: UIData.lightColor,
+                                                size: 14),
+                                          ]),
+                                      SizedBox(height: 4),
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 15),
+                                            child: Icon(Icons.phone,
+                                                size: 15,
+                                                color: Colors.grey[700]),
+                                          ),
+                                          SizedBox(width: 2),
+                                          Expanded(
+                                              child: Text("0722000000",
+                                                  style: TextStyle(
+                                                      color: Colors.grey[700],
+                                                      fontSize: 12)))
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        })),
+                Row(
+                  children: [
+                    Text("Our Works",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
+                  ],
+                ),
+                SizedBox(
+                  height: screen_size_height * 0.02,
+                ),
+                Container(
+                    child: Ourworks(
+                        img1: 'images/1.jpg',
+                        img2: 'images/2.jpg',
+                        name1: 'Stylist',
+                        name2: 'HairDresser')),
+                SizedBox(
+                  height: screen_size_height * 0.02,
+                ),
+                Container(
+                    child: Ourworks(
+                        img1: 'images/3.jpg',
+                        img2: 'images/4.jpg',
+                        name1: 'Stylist',
+                        name2: 'HairDresser')),
+                SizedBox(
+                  height: screen_size_height * 0.02,
+                ),
+                Container(
+                    child: Ourworks(
+                        img1: 'images/3.jpg',
+                        img2: 'images/4.jpg',
+                        name1: 'Stylist',
+                        name2: 'HairDresser'))
               ],
             ),
-            
-               
           ),
-           
         ),
       ),
       drawer: Drawer(
           child: Column(children: [
-                Container(
-           color: UIData.mainColor,
-           height: 150,
-           width: 310,
-           child: DrawerHeader(
-             decoration: BoxDecoration(color: UIData.mainColor),
-             child: ListTile(
-               tileColor: UIData.mainColor,
-               leading: CircleAvatar(
-                 backgroundColor: Colors.white,
-                 backgroundImage: AssetImage('images/avator.png'),
-               ),
-               title: Text(
-                 "Username@gmail.com",
-                 style: TextStyle(color: Colors.black),
-               ),
-             ),
-           ),
-                
-                 ),
-                Flexible(
+        Container(
+          color: UIData.mainColor,
+          height: 150,
+          width: 310,
+          child: DrawerHeader(
+            decoration: BoxDecoration(color: UIData.mainColor),
+            child: ListTile(
+              tileColor: UIData.mainColor,
+              leading: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage('images/avator.png'),
+              ),
+              title: Text(
+                "Username@gmail.com",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+        ),
+        Flexible(
           child: Container(
             height: screen_size_height * 0.8,
             child: Sidebar(),
           ),
-                ),
-              ])),
+        ),
+      ])),
       bottomNavigationBar: Navbar(),
     );
   }
