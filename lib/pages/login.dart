@@ -1,3 +1,4 @@
+import 'package:beautysalon/pages/home.dart';
 import 'package:beautysalon/pages/signup.dart';
 import 'package:beautysalon/pages/users.dart';
 import 'package:beautysalon/pages/users.dart';
@@ -25,7 +26,7 @@ Future login(context) async {
             password: passwordcontrollerlogin.text);
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => ChatUser()),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
