@@ -15,10 +15,13 @@ import 'package:beautysalon/pages/signup.dart';
 import 'package:beautysalon/pages/tab_bar.dart';
 import 'package:beautysalon/pages/users.dart';
 import 'package:beautysalon/uidata.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

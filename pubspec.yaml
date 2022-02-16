@@ -37,7 +37,7 @@ dependencies:
   round_checkbox_group: ^0.0.7
   table_calendar: ^3.0.3  
   firebase_auth: ^3.3.0
-  firebase_core: 
+  firebase_core : ^0.5.0
   cloud_firestore:
   firebase_storage:
   file_picker: ^4.2.8

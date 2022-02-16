@@ -76,7 +76,7 @@ class _SignupState extends State<Signup> {
             children: [
               Image(
                 image: AssetImage(
-                  "assets/images/logo.png",
+                  "images/logo.png",
                 ),
                 height: 150,
                 width: MediaQuery.of(context).size.width,

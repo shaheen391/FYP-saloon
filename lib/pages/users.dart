@@ -343,7 +343,7 @@ class _ChatUserState extends State<ChatUser> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
                         child: Image(
-                          image: AssetImage("assets/images/run.gif"),
+                          image: AssetImage("images/logo.png"),
                         ),
                       );
                     }
