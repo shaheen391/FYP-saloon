@@ -15,6 +15,8 @@ import '../../uidata.dart';
 import '../book.dart';
 import '../users.dart';
 
+var index = 0;
+
 // import 'package:foodapplication/Screens/Components/colors.dart';
 
 class Navbar extends StatefulWidget {
@@ -32,8 +34,7 @@ class _NavbarState extends State<Navbar> {
 
   // var myindex =0;
 
-  int index = 0;
-  final navigationKey = GlobalKey<CurvedNavigationBarState>();
+  GlobalKey<CurvedNavigationBarState> navigationKey = GlobalKey();
   // final List<Widget> PagesAll = [
   //   Homepage1(),
   //   Bookapp1(),
@@ -48,7 +49,7 @@ class _NavbarState extends State<Navbar> {
   // }
   @override
   Widget build(BuildContext context) {
-    final items = <Widget>[
+    var itemslist = [
       // IconButton(
       //   onPressed: () {
       //     Navigator.pushNamed(context, UIData.homePageRoute);
@@ -131,33 +132,43 @@ class _NavbarState extends State<Navbar> {
       // )),
 
       backgroundColor: Colors.transparent,
-      key: navigationKey,
       color: UIData.lightColor,
-      items: items,
-      index: index,
-      // onTap: (index) => setState(() => this.index = index),
+      items: itemslist,
       animationCurve: Curves.easeInOut,
       animationDuration: Duration(milliseconds: 300),
-      onTap: (index) {
+      onTap: (index1) {
         setState(() {
-          if (index == 0) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
-          } else if (index == 1) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ChatUser()));
-          } else if (index == 2) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => bar()));
-          } else if (index == 3) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Appointment2()));
-          } else if (index == 4) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Account()));
-          }
+          var key = navigationKey;
+
+          index = index1;
+          navigationKey = navigationKey;
         });
+        if (index1 == 0) {
+          print(navigationKey);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else if (index1 == 1) {
+          print(navigationKey);
+          print(index);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ChatUser()));
+        } else if (index1 == 2) {
+          print(index);
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => bar()));
+        } else if (index1 == 3) {
+          print(index);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Appointment2()));
+        } else if (index1 == 4) {
+          print(index1);
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Account()));
+        }
       },
+      letIndexChange: (index) => true,
 
       // onTap: (index) => setState(()=> this.index = index),
     );

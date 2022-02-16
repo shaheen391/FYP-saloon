@@ -1,3 +1,4 @@
+import 'package:beautysalon/pages/Bottom/bottm.dart';
 import 'package:beautysalon/pages/home.dart';
 import 'package:beautysalon/pages/signup.dart';
 import 'package:beautysalon/pages/users.dart';
