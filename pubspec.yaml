@@ -36,6 +36,10 @@ dependencies:
   google_fonts: ^2.2.0
   round_checkbox_group: ^0.0.7
   table_calendar: ^3.0.3  
+  firebase_auth: ^3.3.0
+  firebase_core: 
+  cloud_firestore:
+  firebase_storage:
   file_picker: ^4.2.8
 
 dev_dependencies:

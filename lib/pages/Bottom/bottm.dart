@@ -145,7 +145,7 @@ class _NavbarState extends State<Navbar> {
                 context, MaterialPageRoute(builder: (context) => HomePage()));
           } else if (index == 1) {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Users()));
+                context, MaterialPageRoute(builder: (context) => ChatUser()));
           } else if (index == 2) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => bar()));

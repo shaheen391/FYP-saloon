@@ -1,308 +1,280 @@
-import 'package:beautysalon/uidata.dart';
+import 'package:beautysalon/pages/login.dart';
+import 'package:beautysalon/helper/stoarage_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 
 class Signup extends StatefulWidget {
-  const Signup({ Key? key }) : super(key: key);
+  const Signup({Key? key}) : super(key: key);
 
   @override
   _SignupState createState() => _SignupState();
 }
 
+TextEditingController emailcontroller = TextEditingController();
+TextEditingController passwordcontroller = TextEditingController();
+TextEditingController usernamecontroller = TextEditingController();
+
+FirebaseAuth auth = FirebaseAuth.instance;
+var results;
+
+Future signup1(context) async {
+  if (results != null &&
+      emailcontroller.text != "" &&
+      usernamecontroller.text != "" &&
+      passwordcontroller.text != "") {
+    var folder = emailcontroller.text;
+    Storage storageobj = Storage();
+    var filename = results.files.single.name;
+    var pathname = results.files.single.path;
+    storageobj.uploadFile(pathname, folder, filename);
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailcontroller.text, password: passwordcontroller.text);
+      await FirebaseFirestore.instance.collection("user_detail").add({
+        'email': emailcontroller.text,
+        'username': usernamecontroller.text,
+        'password': passwordcontroller.text,
+        'profile': "profile/" + folder + "/" + results.files.single.name
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
+      emailcontroller.clear();
+      usernamecontroller.clear();
+      passwordcontroller.clear();
+      results = null;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+}
+
 class _SignupState extends State<Signup> {
+  bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: UIData.lighterColor,
-        body: Stack(
-          children: [
-            new AppBar(
-              backgroundColor: Colors.transparent,
-              toolbarHeight: 220,
-              elevation: 0.0,
-              automaticallyImplyLeading: false,
-              flexibleSpace: Container(
-                height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
-                  color: UIData.lighterColor,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(28),
-                      bottomRight: Radius.circular(28)),
+        body: Container(
+      color: Colors.purple,
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                image: AssetImage(
+                  "assets/images/logo.png",
                 ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 20,
-                      left: 10,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                        ),
-                        iconSize: 30,
-                        color: Colors.white,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
+                height: 150,
+                width: MediaQuery.of(context).size.width,
+              ),
+              Text(
+                "Join the Baatcheet",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              Stack(alignment: Alignment.bottomRight, children: [
+                if (results != null)
+                  CircleAvatar(
+                    radius: MediaQuery.of(context).size.width * 0.12,
+                    backgroundImage: FileImage(
+                      File(results.files.single.path),
                     ),
-                    Positioned(
-                        top: 31,
-                        left: 50,
+                  ),
+                InkWell(
+                  onTap: () async {
+                    results = await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowMultiple: false,
+                        allowedExtensions: ['pdf', 'jpg', 'png', 'jpeg']);
+                    setState(() {
+                      results = results;
+                    });
+                    if (results == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("content"),
+                        ),
+                      );
+                    }
+                    var pathname = results.files.single.path;
+                  },
+                  child: CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.purple,
+                    ),
+                  ),
+                ),
+              ]),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    "Email",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  )),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    fillColor: Colors.purpleAccent,
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(3)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                  ),
+                  controller: emailcontroller,
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    "Username",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  )),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    fillColor: Colors.purpleAccent,
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(3)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                  ),
+                  controller: usernamecontroller,
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    "Password",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  )),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  obscureText: _isObscure,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    fillColor: Colors.purpleAccent,
+                    filled: true,
+                    suffixIcon: IconButton(
+                        icon: Icon(
+                            _isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.white),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        }),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(3)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                  ),
+                  controller: passwordcontroller,
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.08,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: ElevatedButton(
+                  onPressed: () {
+                    signup1(context);
+                  },
+                  child: Text(
+                    "Signup",
+                    style: TextStyle(color: Colors.purple),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      textStyle:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already hava an account ?",
+                      style: TextStyle(color: Colors.white, fontSize: 13),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          emailcontroller.clear();
+                          usernamecontroller.clear();
+                          passwordcontroller.clear();
+                          results = null;
+                        },
                         child: Text(
-                          "Back",
+                          " login",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )),
-                    Positioned(
-                        top: 25,
-                        right: 10,
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold),
                         )),
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              top: 200,
-              height: 700,
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color:  UIData.lighterColor,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(28),
-                        topRight: Radius.circular(28)),
-                  ),
-                  child: Stack(children: [
-                    // Positioned(
-
-                    //   left: 0,
-                    //   child: Container(
-                    //       width: MediaQuery.of(context).size.width,
-                    //       child: CircleAvatar(
-                    //         backgroundImage:
-                    //             AssetImage('assets/images/avator.png'),
-                    //         backgroundColor: Colors.white,
-                    //         radius: 40,
-                    //       )),
-                    // ),
-                     Positioned(
-                      top: 50,
-                      left: 142,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          "Welcome!",
-                          style: TextStyle(color: UIData.mainColor, fontSize: 25),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 100,
-                      left: 40,
-                      child: Text(
-                        "Username",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(
-                              187,
-                              178,
-                              179,
-                              1.0,
-                            )),
-                      ),
-                    ),
-                    Positioned(
-                      top: 120,
-                      left: 40,
-                      child: Container(
-                          width: 300,
-                          child: TextField(
-                              // controller: username,
-                              style: TextStyle(
-                                  color: UIData.mainColor),
-                              decoration: InputDecoration(
-                                hintText: 'Enter your username',
-                                hintStyle: TextStyle(
-                                    color: UIData.mainColor),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: UIData.mainColor,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color.fromRGBO(194, 103, 117, 1.0),
-                                  ),
-                                ),
-                              ))),
-                    ),
-                    Positioned(
-                      top: 180,
-                      left: 40,
-                      child: Text(
-                        "Email",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(
-                              187,
-                              178,
-                              179,
-                              1.0,
-                            )),
-                      ),
-                    ),
-                    Positioned(
-                      top: 200,
-                      left: 40,
-                      child: Container(
-                          width: 300,
-                          child: TextField(
-                              // controller: email,
-                              style: TextStyle(
-                                  color: UIData.mainColor),
-                              decoration: InputDecoration(
-                                hintText: 'Enter your email',
-                                hintStyle: TextStyle(
-                                    color: UIData.mainColor),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: UIData.mainColor,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color.fromRGBO(194, 103, 117, 1.0),
-                                  ),
-                                ),
-                              ))),
-                    ),
-                    Positioned(
-                      top: 270,
-                      left: 40,
-                      child: Text(
-                        "Password",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(
-                              187,
-                              178,
-                              179,
-                              1.0,
-                            )),
-                      ),
-                    ),
-                    Positioned(
-                      top: 300,
-                      left: 40,
-                      child: Container(
-                          width: 300,
-                          child: TextField(
-                              // controller: pass,
-                              style: TextStyle(
-                                  color: UIData.mainColor),
-                              decoration: InputDecoration(
-                                hintText: 'Enter your password',
-                                hintStyle: TextStyle(
-                                    color: UIData.mainColor),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: UIData.mainColor,
-                                  ),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: UIData.mainColor,
-                                  ),
-                                ),
-                              ))),
-                    ),
-                    // Positioned(
-                    //     top: 365,
-                    //     right: 200,
-                    //     child: Text(
-                    //       "Save password",
-                    //       style: TextStyle(
-                    //         color: Color.fromRGBO(
-                    //           194,
-                    //           103,
-                    //           117,
-                    //           1.0,
-                    //         ),
-                    //         fontSize: 18,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     )),
-                  ])),
-            ),
-            Positioned(
-              top: 600,
-              left: 40,
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: Container(
-                  child: ElevatedButton(
-                onPressed: () async {
-                  // registration();
-                  // addsignup();
-                },
-                style: ElevatedButton.styleFrom(
-                    primary: UIData.mainColor),
-                child: Text(
-                  'SIGN UP',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              )),
-            ),
-            Positioned(
-                top: 685,
-                left: 85,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: TextButton(
-                    onPressed: () {
-                      // Navigator.of(context).push(
-                      //     MaterialPageRoute(builder: (context) => Login()));
-                    },
-                    child: Text('Login',
-                        style: TextStyle(
-                          color: UIData.mainColor,
-                          fontSize: 17,
-                          decoration: TextDecoration.underline,
-                          decorationColor: UIData.mainColor,
-                          decorationThickness: 4,
-                          decorationStyle: TextDecorationStyle.solid,
-                        )),
-                  ),
-                )),
-            Positioned(
-                top: 700,
-                left: 50,
-                child: Text(
-                  "Already Have An Account?",
-                  style: TextStyle(
-                    color: Color.fromRGBO(
-                      187,
-                      178,
-                      179,
-                      1.0,
-                    ),
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )),
-          ],
-        ));
+            ],
+          ),
+        ),
+      ),
+    ));
   }
 }
