@@ -20,7 +20,7 @@ var pageindex = 0;
 // import 'package:foodapplication/Screens/Components/colors.dart';
 
 class Navbar extends StatefulWidget {
-  // const Navbar({Key ? key}) : super(key: key);
+  const Navbar({Key? key}) : super(key: key);
 
   @override
   _NavbarState createState() => _NavbarState();
@@ -29,7 +29,6 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   GlobalKey<CurvedNavigationBarState> navigationKey = GlobalKey();
 
-  @override
   @override
   Widget build(BuildContext context) {
     var itemslist = [
@@ -66,16 +65,59 @@ class _NavbarState extends State<Navbar> {
       )
     ];
 
-    return CurvedNavigationBar(
+    return BottomNavigationBar(
+      // letIndexChange: (pageindex) => true,
       backgroundColor: Colors.transparent,
-      color: UIData.lightColor,
-      items: itemslist,
-      animationCurve: Curves.easeInOut,
-      animationDuration: Duration(milliseconds: 300),
+      items: [
+        BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
+              Icons.home,
+              size: 30,
+              color: UIData.mainColor,
+            )),
+
+        // ),
+        BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
+              Icons.message,
+              size: 30,
+              color: UIData.mainColor,
+            )),
+
+        BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
+              Icons.add,
+              size: 30,
+              color: UIData.mainColor,
+            )),
+
+        BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
+              Icons.favorite,
+              color: UIData.mainColor,
+              size: 30,
+            )),
+
+        BottomNavigationBarItem(
+            label: "",
+            icon: Icon(
+              Icons.person,
+              color: UIData.mainColor,
+              size: 30,
+            ))
+      ],
+      currentIndex: pageindex,
       onTap: (index1) {
+        print("dsmsdimsdimsdimdsimsdimsdidmsisdmsdmsdimdis");
         print("domaodoo smos oamok indexx $index1");
 
         print("domaodoo smos nnnenweunun  page $pageindex");
+        print("momoemeuwenuwenuwenuwenu");
+
         setState(() {
           pageindex = index1;
         });
@@ -118,7 +160,6 @@ class _NavbarState extends State<Navbar> {
               context, MaterialPageRoute(builder: (context) => Account()));
         }
       },
-      letIndexChange: (pageindex) => true,
     );
   }
 }
