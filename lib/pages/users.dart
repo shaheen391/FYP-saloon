@@ -4,6 +4,7 @@ import 'package:beautysalon/helper/stoarage_helper.dart';
 import 'package:beautysalon/pages/login.dart';
 import 'package:beautysalon/pages/chatting.dart';
 import 'package:beautysalon/pages/profile.dart';
+import 'package:beautysalon/uidata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -148,7 +149,7 @@ class _ChatUserState extends State<ChatUser> {
               child: Text(
                 'Drawer Header',
                 style: TextStyle(
-                  color: Colors.purple,
+                  color: UIData.mainColor,
                   fontSize: 12,
                 ),
               ),
@@ -180,13 +181,15 @@ class _ChatUserState extends State<ChatUser> {
         ),
       ),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.purple),
+        iconTheme: IconThemeData(color: UIData.mainColor),
         elevation: 0,
-        backgroundColor: Colors.grey[300],
+        backgroundColor: UIData.lightColor,
         title: Text(
           "Messages",
           style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.purple),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: UIData.mainColor),
         ),
       ),
       body: Center(
@@ -204,7 +207,7 @@ class _ChatUserState extends State<ChatUser> {
                           MediaQuery.of(context).size.width * 0.1),
                       bottomRight: Radius.circular(
                           MediaQuery.of(context).size.width * 0.1)),
-                  color: Colors.grey[300],
+                  color: UIData.lightColor,
                 ),
                 child: Column(
                   children: [
@@ -217,7 +220,7 @@ class _ChatUserState extends State<ChatUser> {
                               left: MediaQuery.of(context).size.width * 0.01),
                           child: CircleAvatar(
                             radius: MediaQuery.of(context).size.width * 0.06,
-                            backgroundColor: Colors.purple,
+                            backgroundColor: UIData.mainColor,
                             child: Icon(Icons.add),
                           ),
                         ),
@@ -272,7 +275,7 @@ class _ChatUserState extends State<ChatUser> {
                                                                   '${snap.data!}'))),
                                               child: CircleAvatar(
                                                   backgroundColor:
-                                                      Colors.purple,
+                                                      UIData.mainColor,
                                                   backgroundImage: NetworkImage(
                                                     snap.data!,
                                                   )),
@@ -285,7 +288,8 @@ class _ChatUserState extends State<ChatUser> {
                                           if (snap.connectionState ==
                                               ConnectionState.waiting) {
                                             return CircleAvatar(
-                                                backgroundColor: Colors.purple,
+                                                backgroundColor:
+                                                    UIData.mainColor,
                                                 backgroundImage: AssetImage(
                                                   "assets/images/default.jpeg",
                                                 ));
@@ -321,7 +325,7 @@ class _ChatUserState extends State<ChatUser> {
                           suffixText: 'Go',
                           prefixIcon: const Icon(
                             Icons.search,
-                            color: Colors.purple,
+                            color: UIData.mainColor,
                           ),
                         ),
                       ),
@@ -382,7 +386,7 @@ class _ChatUserState extends State<ChatUser> {
                                               ConnectionState.done &&
                                           snap.hasData) {
                                         return CircleAvatar(
-                                            backgroundColor: Colors.purple,
+                                            backgroundColor: UIData.mainColor,
                                             backgroundImage: NetworkImage(
                                               snap.data!,
                                             ));
@@ -394,7 +398,7 @@ class _ChatUserState extends State<ChatUser> {
                                       if (snap.connectionState ==
                                           ConnectionState.waiting) {
                                         return CircleAvatar(
-                                            backgroundColor: Colors.purple,
+                                            backgroundColor: UIData.mainColor,
                                             backgroundImage: AssetImage(
                                               "assets/images/default.jpeg",
                                             ));

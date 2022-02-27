@@ -1,5 +1,6 @@
 import 'package:beautysalon/helper/stoarage_helper.dart';
 import 'package:beautysalon/pages/profile.dart';
+import 'package:beautysalon/uidata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -51,69 +52,6 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: StreamBuilder(
-                stream: Storage().downloadedUrl('${widget.profile}'),
-                builder: (context, AsyncSnapshot<String> snap) {
-                  if (snap.hasError) {
-                    return Text("Error");
-                  } else if (snap.connectionState == ConnectionState.done &&
-                      snap.hasData) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Profile(
-                                    profile: '${widget.profile}',
-                                    profileimg: '${snap.data!}')));
-                      },
-                      child: CircleAvatar(
-                          backgroundColor: Colors.purple,
-                          backgroundImage: NetworkImage(
-                            snap.data!,
-                          )),
-                    );
-                    //Container(width: 300,height: 450,
-                    // child: Image.network(snap.data!,
-                    // fit: BoxFit.cover,),
-
-                  }
-                  if (snap.connectionState == ConnectionState.waiting) {
-                    return CircleAvatar(
-                        backgroundColor: Colors.purple,
-                        backgroundImage: AssetImage(
-                          "assets/images/default.jpeg",
-                        ));
-                  }
-                  return Container();
-                },
-              ),
-            ),
-          ),
-        ],
-        title: Center(
-          child: Text(
-            "${widget.sendto}",
-            style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color: Colors.purple),
-          ),
-        ),
-        leadingWidth: MediaQuery.of(context).size.width * 0.2,
-        leading: InkWell(
-            onTap: () => Navigator.pop(context),
-            child: Icon(Icons.arrow_back_outlined, color: Colors.purple)),
-      ),
       body: Center(
         child: Column(
           children: [
@@ -164,7 +102,7 @@ class _ChatState extends State<Chat> {
                               right: MediaQuery.of(context).size.width * 0.01,
                               top: MediaQuery.of(context).size.width * 0.05),
                           decoration: BoxDecoration(
-                            color: selectuser ? Colors.purple : Colors.white,
+                            color: selectuser ? UIData.mainColor : Colors.white,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10),
@@ -269,12 +207,12 @@ class _ChatState extends State<Chat> {
                                 borderRadius: BorderRadius.circular(25.7)),
                             suffixIcon: Icon(
                               Icons.mic,
-                              color: Colors.purple,
+                              color: UIData.mainColor,
                             ),
                             hintText: 'Type a message',
                             prefixIcon: Icon(
                               Icons.face,
-                              color: Colors.purple,
+                              color: UIData.mainColor,
                             ))),
                   ),
                   InkWell(
@@ -287,7 +225,7 @@ class _ChatState extends State<Chat> {
                         }
                       },
                       child: CircleAvatar(
-                        backgroundColor: Colors.purple,
+                        backgroundColor: UIData.mainColor,
                         child: Icon(
                           Icons.send,
                           color: Colors.white,
