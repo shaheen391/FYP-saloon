@@ -3,6 +3,7 @@ import 'package:beautysalon/pages/home.dart';
 import 'package:beautysalon/pages/signup.dart';
 import 'package:beautysalon/pages/users.dart';
 import 'package:beautysalon/pages/users.dart';
+import 'package:beautysalon/uidata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      color: Colors.purple,
+      color: UIData.mainColor,
       child: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -80,7 +81,7 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    fillColor: Colors.purpleAccent,
+                    fillColor: UIData.mainColorlight,
                     filled: true,
                     border: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -110,7 +111,7 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    fillColor: Colors.purpleAccent,
+                    fillColor: UIData.mainColorlight,
                     filled: true,
                     suffixIcon: IconButton(
                         icon: Icon(
@@ -150,7 +151,7 @@ class _LoginState extends State<Login> {
                     },
                     child: Text(
                       "Login",
-                      style: TextStyle(color: Colors.purple),
+                      style: TextStyle(color: UIData.mainColor),
                     )),
               ),
               Padding(

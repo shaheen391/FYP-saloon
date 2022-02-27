@@ -1,5 +1,6 @@
 import 'package:beautysalon/pages/login.dart';
 import 'package:beautysalon/helper/stoarage_helper.dart';
+import 'package:beautysalon/uidata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      color: Colors.purple,
+      color: UIData.mainColor,
       child: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -120,7 +121,7 @@ class _SignupState extends State<Signup> {
                     backgroundColor: Colors.white,
                     child: Icon(
                       Icons.add,
-                      color: Colors.purple,
+                      color: UIData.mainColor,
                     ),
                   ),
                 ),
@@ -141,7 +142,7 @@ class _SignupState extends State<Signup> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    fillColor: Colors.purpleAccent,
+                    fillColor: UIData.mainColorlight,
                     filled: true,
                     border: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -170,7 +171,7 @@ class _SignupState extends State<Signup> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    fillColor: Colors.purpleAccent,
+                    fillColor: UIData.mainColorlight,
                     filled: true,
                     border: OutlineInputBorder(
                         borderSide: BorderSide.none,
@@ -200,7 +201,7 @@ class _SignupState extends State<Signup> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    fillColor: Colors.purpleAccent,
+                    fillColor: UIData.mainColorlight,
                     filled: true,
                     suffixIcon: IconButton(
                         icon: Icon(
@@ -235,7 +236,7 @@ class _SignupState extends State<Signup> {
                   },
                   child: Text(
                     "Signup",
-                    style: TextStyle(color: Colors.purple),
+                    style: TextStyle(color: UIData.mainColor),
                   ),
                   style: ElevatedButton.styleFrom(
                       primary: Colors.white,

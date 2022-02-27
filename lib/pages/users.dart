@@ -221,7 +221,7 @@ class _ChatUserState extends State<ChatUser> {
                           child: CircleAvatar(
                             radius: MediaQuery.of(context).size.width * 0.06,
                             backgroundColor: UIData.mainColor,
-                            child: Icon(Icons.add),
+                            child: Icon(Icons.add, color: UIData.lightColor),
                           ),
                         ),
                         SizedBox(
