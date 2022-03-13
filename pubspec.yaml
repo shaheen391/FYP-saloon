@@ -40,7 +40,9 @@ dependencies:
   firebase_core : 
   cloud_firestore:
   firebase_storage:
-  file_picker: 
+  file_picker:
+  google_maps_flutter: ^2.1.1
+
 
 dev_dependencies:
   flutter_test:
